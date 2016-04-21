@@ -43,10 +43,10 @@ def get_score_summary(filename):
     fhandler.close()
 
     summary = {}
-    for value in data.itervalues(): #.itervalues/iterkeys has been replaced by
-        if value[0] not in summary.iterkeys(): # values/keys, but will not pass
-            value1 = 1              # runtests.sh with the new values
-            value2 = GRADES[value[1]]
+    for value in data.itervalues():            #.itervalues/.iterkeys has been
+        if value[0] not in summary.iterkeys(): # replaced by .values/.keys in
+            value1 = 1                         # python 3.4 but will not pass
+            value2 = GRADES[value[1]]          # runtests.sh with the new values
         else:
             value1 = summary[value[0]][0] + 1
             value2 = summary[value[0]][1] + GRADES[value[1]]
@@ -85,7 +85,7 @@ def get_market_density(filename):
     fhandler.close()
     for data in summary:
         data[8] = data[8].strip()
-        if data[8] not in result.iterkeys():
+        if data[8] not in result.iterkeys(): # see note above
             val = 1
         else:
             val = result[data[8]] + 1
@@ -112,8 +112,8 @@ def correlate_data(doc1='inspection_results.csv',
     average_score = get_score_summary(doc1)
     average_data = get_market_density(doc2)
     out = {}
-    for key2 in average_data.iterkeys():
-        for key1 in average_score.iterkeys():
+    for key2 in average_data.iterkeys():      # see note above
+        for key1 in average_score.iterkeys(): # see note above
             if key1 == str(key2).upper():
                 value1 = average_score[key1][1]
                 value2 = float(average_data[key2])/(average_score[key1][0])
