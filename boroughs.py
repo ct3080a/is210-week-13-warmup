@@ -97,7 +97,7 @@ def correlate_data(filename1='inspection_results.csv',
     """Defines a function to combine the data read in the previous functions.
 
     Args:
-        filename1 (str): a csv file containing restaurant data 
+        filename1 (str): a csv file containing restaurant data
         filename2 (str): a JSON file containing green market data
         filename3 (str): the file which will contain the output of the function.
 
@@ -114,7 +114,5 @@ def correlate_data(filename1='inspection_results.csv',
                 val2 = float(marketdata[key2])/(scoredata[key1][0])
                 dataresult[key2] = (val1, val2)
                 dataresult.update(dataresult)
-    jdata = json.dumps(dataresult)
-    fhandler = open(filename3, 'w')
-    fhandler.write(jdata)
-    fhandler.close
+    with open(filename3, 'w') as outfile:
+        json.dump(dataresult, outfile)
