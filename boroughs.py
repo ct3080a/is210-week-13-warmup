@@ -46,7 +46,7 @@ def get_score_summary(filename):
     for value in data.itervalues():             # .itervalues/.iterkeys has been
         if value[0] not in summary.iterkeys():  # replaced by .values/.keys in
             value1 = 1                          # python 3.4 but will not pass
-            value2 = GRADES[value[1]]           # runtests.sh with the new values
+            value2 = GRADES[value[1]]           # runtests.sh with the new value
         else:
             value1 = summary[value[0]][0] + 1
             value2 = summary[value[0]][1] + GRADES[value[1]]
