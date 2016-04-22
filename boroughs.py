@@ -28,7 +28,9 @@ def get_score_summary(filename):
     Examples:
         >>> get_score_summary('inspection_results.csv')
         >>> {'BRONX': (156, 0.9762820512820514), 'BROOKLYN':
-        (417,
+        (417, 0.97458-3357314141), 'STATEN ISLAND': (46, 0.9894347826086955),
+        'MANHATTAN': (748, 0.9771390374331531), 'QUEENS':
+        (414, 0.9719806763285017)}
     """
     data = {}
     fhandler = open(filename, 'r')
@@ -59,8 +61,19 @@ def get_score_summary(filename):
 
 
 def get_market_density(filename):
-    """Defines a function that
+    """Defines a function that determines the density of Green Markets in the
+    city.
 
+    Args:
+        filename (str): the filename of the file which will be read.
+
+    Returns:
+        dictionary: keyed by boro, with the number of Green Markets
+
+    Examples:
+        >>> get_market_density('green_markets.json')
+        {u'STATEN ISLAND': 2, u'BROOKLYN': 48, u'BRONX': 32,
+        u'MANHATTAN': 39, u'QUEENS': 16}
     """
     fhandler = open(filename, 'r')
     jsondata = json.load(fhandler)
@@ -81,15 +94,15 @@ def get_market_density(filename):
 def correlate_data(filename1='inspection_results.csv',
                    filename2='green_markets.json',
                    filename3='correlationdata.csv'):
-    """Defines a function to
+    """Defines a function to combine the data read in the previous functions.
 
     Args:
-        filename1 (str)
-        filename2 (str)
-        filename3 (str)
+        filename1 (str): a csv file containing restaurant data 
+        filename2 (str): a JSON file containing green market data
+        filename3 (str): the file which will contain the output of the function.
 
     Returns:
-        dictionary:
+        dictionary: contains the restaurant and green market data
     """
     scoredata = get_score_summary(filename1)
     marketdata = get_market_density(filename2)
