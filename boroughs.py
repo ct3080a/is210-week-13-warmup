@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+"""almost forgot docstring here"""
 
 import csv
 import json
@@ -76,8 +76,7 @@ def get_market_density(filename):
     data = my_info["info"]
     end = {}
     fhandler.close()
-    for 
-    in data:
+    for info in data:
         info[8] = info[8].strip()
         if info[8] not in end.iterkeys():
             val = 1
