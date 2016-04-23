@@ -73,7 +73,7 @@ def get_market_density(filename):
 
     fhandler = open(filename, 'r')
     my_info = json.load(fhandler)
-    data = my_info["info"]
+    data = my_info["data"]
     end = {}
     fhandler.close()
     for info in data:
