@@ -3,11 +3,11 @@
 """This model creates data as a string and extracts info from it. """
 
 grades = {
-	"A" : 100.00,
-	"B" : 90.00,
-	"C" : 80.00,
-	"D" : 70.00,
-	"F" : 60.00,
+	"A" : 1.00,
+	"B" : .9000,
+	"C" : .8000,
+	"D" : .7000,
+	"F" : .6000,
 }
 
 filepath = "inspection_results.csv"
