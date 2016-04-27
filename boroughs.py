@@ -11,37 +11,40 @@ grades = {
 }
 
 filepath = "inspection_results.csv"
-fhandler = open(filepath, 'r')
-f_list = fhandler.readlines()
-f_unique = []
 
-for line in f_list:
-    if line not in f_unique:
-        f_unique.append(line)
-    else:
-        pass
-for x in f_unique:
-    print(x)
+#{3453445: {"GRADE":"A","BORO":"QUEENS"}}
 
-def get_score_summary(fhandler):
-    """This function generates scores.
+def get_score_summary(filepath):
+     fhandler = open(filepath, 'r')
+     f_list = fhandler.readlines()
 
-	   Argumentsm:
-            mixed: results of inspection
-        Returns:
-            A summary of scores
-        Examples:
-            >>> get_score_summary('inspection_results.csv')
-            >>> {'BRONX': (156, 0.9762820512820514), 'BROOKLYN':
-                (417, 0.9745803357314141), 'STATEN ISLAND': (46, 0.9804347826086955),
-                'MANHATTAN': (748, 0.9771390374331531), 'QUEENS':
-                (414, 0.9719806763285017)}
-    """
-my_file = []
-with open(fhandler) as f:
-    for line in f.read().split():
-        my_file.append(line)
-    print(my_file)
+     d = {}
+     for line in f_list[1:]:
+          part1 = line.split(',')
+          if part1[10] in grades:
+               d[part1[0]] = {"GRADE":part1[10], "BORO":part1[1]}
 
-fhandler.close()
- 
+     #print "d is: ", d
+     fhandler.close()
+     r_count_and_score = {
+          "QUEENS": {'num_restaurants':0, 'total_score': 0},
+          "BROOKLYN": {'num_restaurants':0, 'total_score': 0},
+          "MANHATTAN": {'num_restaurants':0, 'total_score': 0},
+          "STATEN ISLAND": {'num_restaurants':0, 'total_score': 0},
+          "BRONX": {'num_restaurants':0, 'total_score': 0},
+          }
+     for key in d.iterkeys():
+          boro = d[key]['BORO']
+          r_count_and_score[boro]['num_restaurants'] +=1
+          grade = d[key]['GRADE']
+          r_count_and_score[boro]['total_score'] += grades[grade]
+
+     #print r_count_and_score
+
+     res_info = {}
+     for key in r_count_and_score.iterkeys():
+          avg = r_count_and_score[key]['total_score'] / \
+                r_count_and_score[key]['num_restaurants']
+          res_info[key] = (r_count_and_score[key]['num_restaurants'], avg)
+
+     return res_info
