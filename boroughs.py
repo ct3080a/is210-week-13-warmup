@@ -66,21 +66,20 @@ def get_market_density(filepath):
         u'MANHATTAN': 39, u'QUEENS': 16}
         
     """
-    filepath = green_markets.json
     fhandler = open(filepath, 'r')
 
-    data = json.load(fhandler)
-    for value in data.iterkeys():
-        a = data[key]["meta"]
-        a["description"] = market_count
-
-    return market_count
-        
-
+    market_info = json.load(fhandler)
+    data = market_info['data']
+    
+    market_count = {
+         "QUEENS": 0,
+         "BROOKLYN": 0,
+         "MANHATTAN": 0,
+         "STATEN ISLAND": 0,
+         "BRONX": 0
+         }
+    for l in data:
+         market_count[l[8].upper().strip()] += 1
+              
     fhandler.close()
-
-#def correlate_data(inspection_results.csv, green_markets.json, output.py):
-     #should arguments have file types
-     #should arguments have ""
-     #should arguments have generic namesin the func statement
-     
+    return market_count
