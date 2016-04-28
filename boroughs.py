@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """This model creates data as a string and extracts info from it. """
 
+import json
 grades = {
 	"A" : 1.00,
 	"B" : .9000,
@@ -48,3 +49,40 @@ def get_score_summary(filepath):
           res_info[key] = (r_count_and_score[key]['num_restaurants'], avg)
 
      return res_info
+
+def get_market_density(filepath):
+    """This function gets a count of markets per borough.
+
+    Args:
+        filename (str): A file containing data.
+
+    Returns:
+        (mixed): A dictionary of the number of green markets per borough.
+
+    Examples:
+    
+        >>> get_market_density('green_markets.json')
+        {u'STATEN ISLAND': 2, u'BROOKLYN': 48, u'BRONX': 32,
+        u'MANHATTAN': 39, u'QUEENS': 16}
+        
+    """
+    filepath = green_markets.json
+    fhandler = open(filepath, 'r')
+
+    data = json.load(fhandler)
+    for value in data.iterkeys():
+        a = data[key]["meta"]
+        a["description"] = market_count
+
+    return market_count
+        
+
+    fhandler.close()
+    
+##  to return the data as a dictionary
+##Loop through the data found in the 'data' and count the number of markets per borough, saving the result as a dictionary.
+##Return a dictionary of the number of green markets per borough. 
+        
+
+     
+     
