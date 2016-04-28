@@ -78,11 +78,5 @@ def get_market_density(filepath):
         
 
     fhandler.close()
-    
-##  to return the data as a dictionary
-##Loop through the data found in the 'data' and count the number of markets per borough, saving the result as a dictionary.
-##Return a dictionary of the number of green markets per borough. 
-        
 
-     
-     
+def correlate_data("inspection_results.csv", "green_market.json", "output.py"):    
