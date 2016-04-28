@@ -79,4 +79,8 @@ def get_market_density(filepath):
 
     fhandler.close()
 
-def correlate_data("inspection_results.csv", "green_market.json", "output.py"):    
+#def correlate_data(inspection_results.csv, green_markets.json, output.py):
+     #should arguments have file types
+     #should arguments have ""
+     #should arguments have generic namesin the func statement
+     
