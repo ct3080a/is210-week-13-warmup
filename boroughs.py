@@ -81,8 +81,8 @@ market_count = {
     "STATEN ISLAND": 0,
     "BRONX": 0
 }
-    for l in data:
-        market_count[l[8].upper().strip()] += 1
+for l in data:
+    market_count[l[8].upper().strip()] += 1
 
     fhandler.close()
 
