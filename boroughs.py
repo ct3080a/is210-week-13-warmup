@@ -39,11 +39,11 @@ def get_score_summary(inspection_results):
                      
     fhandler.close()
     r_count_and_score = {
-        "QUEENS": {'num_restaurants' : 0, 'total_score' : 0},
-        "BROOKLYN": {'num_restaurants' : 0, 'total_score': 0},
+        "QUEENS": {'num_restaurants': 0, 'total_score': 0},
+        "BROOKLYN": {'num_restaurants': 0, 'total_score': 0},
         "MANHATTAN": {'num_restaurants': 0, 'total_score': 0},
         "STATEN ISLAND": {'num_restaurants':0, 'total_score': 0},
-        "BRONX": {'num_restaurants':0, 'total_score': 0},
+        "BRONX": {'num_restaurants': 0, 'total_score': 0},
     }
     for key in d.iterkeys():
         boro = d[key]['BORO']
