@@ -59,7 +59,7 @@ def get_score_summary(filepath):
         else:
             total1 = res_info[value[0]][0] + 1
             total2 = res_info[value[0]][1] + GRADES[value[1]]
-        res_info[value[0] = (total1, total2)
+        res_info[value[0]]= (total1, total2)
         res_info.update(res_info)
     r_count_and_score = {}
     for key in res_info.iterkeys():
