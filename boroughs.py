@@ -83,7 +83,7 @@ market_count = {
 }
 for l in data:
     market_count[l[8].upper().strip()] += 1
-        return market_count
+    return market_count
     fhandler.close()
     
 
