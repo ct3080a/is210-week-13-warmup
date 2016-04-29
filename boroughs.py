@@ -35,8 +35,7 @@ def get_score_summary(inspection_results):
     for line in f_list[1:]:
         part1 = line.split(',')
         if part1[10] in Grades:
-            d[part1[0]] = {"GRADE" : part1[10], "BORO" : part1[1]}
-                     
+            d[part1[0]] = {"GRADE": part1[10], "BORO": part1[1]}
     fhandler.close()
     r_count_and_score = {
         "QUEENS": {'num_restaurants': 0, 'total_score': 0},
@@ -85,7 +84,6 @@ def get_market_density(green_markets):
     }
     for l in data:
         market_count[l[8].upper().strip()] += 1
-              
     fhd.close()
 
     return market_count
