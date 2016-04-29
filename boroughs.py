@@ -4,11 +4,11 @@
 
 import json
 Grades = {
-    "A" : 1.00,
-    "B" : .9000,
-    "C" : .8000,
-    "D" : .7000,
-    "F" : .6000,
+    "A": 1.00,
+    "B": .9000,
+    "C": .8000,
+    "D": .7000,
+    "F": .6000,
 }
 
 #filepath = "inspection_results.csv"
@@ -39,10 +39,10 @@ def get_score_summary(inspection_results):
                      
     fhandler.close()
     r_count_and_score = {
-        "QUEENS" : {'num_restaurants' : 0, 'total_score' : 0},
-        "BROOKLYN" : {'num_restaurants' : 0, 'total_score': 0},
-        "MANHATTAN" : {'num_restaurants': 0, 'total_score': 0},
-        "STATEN ISLAND" : {'num_restaurants':0, 'total_score': 0},
+        "QUEENS": {'num_restaurants' : 0, 'total_score' : 0},
+        "BROOKLYN": {'num_restaurants' : 0, 'total_score': 0},
+        "MANHATTAN": {'num_restaurants': 0, 'total_score': 0},
+        "STATEN ISLAND": {'num_restaurants':0, 'total_score': 0},
         "BRONX": {'num_restaurants':0, 'total_score': 0},
     }
     for key in d.iterkeys():
@@ -57,6 +57,7 @@ def get_score_summary(inspection_results):
         res_info[key] = (r_count_and_score[key]['num_restaurants'], avg)
         return res_info
 
+
 def get_market_density(green_markets):
     """This function gets a count of markets per borough.
 
@@ -69,25 +70,26 @@ def get_market_density(green_markets):
     Examples:
         >>> get_market_density('green_markets.json')
         {u'STATEN ISLAND': 2, u'BROOKLYN': 48, u'BRONX': 32,
-        u'MANHATTAN': 39, u'QUEENS': 16}       
+        u'MANHATTAN': 39, u'QUEENS': 16}
     """
     fhd = open('green_markets.json', 'r')
 
     market_info = json.load(fhd)
     data = market_info['data']
     market_count = {
-         "QUEENS": 0,
-         "BROOKLYN": 0,
-         "MANHATTAN": 0,
-         "STATEN ISLAND": 0,
-         "BRONX": 0
-         }
+        "QUEENS": 0,
+        "BROOKLYN": 0,
+        "MANHATTAN": 0,
+        "STATEN ISLAND": 0,
+        "BRONX": 0
+    }
     for l in data:
-         market_count[l[8].upper().strip()] += 1
+        market_count[l[8].upper().strip()] += 1
               
     fhd.close()
 
     return market_count
+
 
 def correlate_data(res_file, market_file, data_output):
     """This function correlates data.
@@ -110,7 +112,7 @@ def correlate_data(res_file, market_file, data_output):
     new_market = {}
     for key in market_density.iterkeys():
         for key1 in score_summary.iterkeys():
-            if key1 ==str(key).upper():
+            if key1 == str(key).upper():
                 val1 = score_summary[key1][1]
                 val2 = float(market_density[key]) / (score_summary[key1][0])
                 new_market[key] = (val1, val2)
