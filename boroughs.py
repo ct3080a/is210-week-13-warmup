@@ -53,7 +53,7 @@ def get_score_summary(filepath):
 ##        r_count_and_score[boro]['total_score'] += GRADES[grade]
     res_info = {}
     for value in D.itervalues():
-        if value[0] not res_info.iterkeys():
+        if value[0] not in res_info.iterkeys():
             total1 = 1
             total2 = GRADES[value[1]]
         else:
