@@ -85,8 +85,7 @@ for l in data:
     market_count[l[8].upper().strip()] += 1
 
     fhandler.close()
-
-return market_count
+        return market_count
 
 def correlate_data(res_file, market_file, data_output):
     """This function correlates data.
