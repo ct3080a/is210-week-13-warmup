@@ -3,15 +3,16 @@
 """This model creates data as a string and extracts info from it. """
 
 import json
-Grades = {
-    "A" : 1.00,
-    "B" : .9000,
-    "C" : .8000,
-    "D" : .7000,
-    "F" : .6000,
+import csv
+GRADES = {
+    'A' : float(1),
+    'B' : float(.9),
+    'C' : float(.8),
+    'D' : float(.7),
+    'F' : float(.6),
 }
 
-filepath = "inspection_results.csv"
+#filepath = "inspection_results.csv"
 
 def get_score_summary(filepath):
     """This function returns restaurant inspectction data.
@@ -23,38 +24,54 @@ def get_score_summary(filepath):
 
     Examples:
         >>> get_score_summary('inspection_results.csv')
-        >>> {'BRONX': (156, 0.9762820512820514), 'BROOKLYN':
-        (417, 0.9745803357314141), 'STATEN ISLAND': (46, 0.9804347826086955),
-        'MANHATTAN': (748, 0.9771390374331531), 'QUEENS':
-        (414, 0.9719806763285017)}
+        {'BRONX': (156, 0.9762820512820514),
+        'BROOKLYN': (417, 0.9745803357314141),
+        'STATEN ISLAND': (46, 0.9804347826086955),
+        'MANHATTAN': (748, 0.9771390374331531),
+        'QUEENS': (414, 0.9719806763285017)}
     """
+    D = {}
     fhandler = open(filepath, 'r')
-    f_list = fhandler.readlines()
-    d = {}
-    for line in f_list[1:]:
-        part1 = line.split(',')
-        if part1[10] in Grades:
-            d[part1[0]] = {"GRADE": part1[10], "BORO": part1[1]}
-
+    f_list = csv.reader(fhandler)
+    for line in f_list:
+        if row[10] not in ['P', '', 'GRADE']:
+            D[line[0]] = [line[1], line[10]]
+            D.update(D)
     fhandler.close()
-    r_count_and_score = {
-        "QUEENS": {'num_restaurants': 0, 'total_score': 0},
-        "BROOKLYN": {'num_restaurants': 0, 'total_score': 0},
-        "MANHATTAN": {'num_restaurants': 0, 'total_score': 0},
-        "STATEN ISLAND": {'num_restaurants': 0, 'total_score': 0},
-        "BRONX": {'num_restaurants': 0, 'total_score': 0},
-    }
-    for key in d.iterkeys():
-        boro = d[key]['BORO']
-        r_count_and_score[boro]['num_restaurants'] += 1
-        grade = d[key]['GRADE']
-        r_count_and_score[boro]['total_score'] += Grades[grade]
+    
+##    r_count_and_score = {
+##        "QUEENS": {'num_restaurants': 0, 'total_score': 0},
+##        "BROOKLYN": {'num_restaurants': 0, 'total_score': 0},
+##        "MANHATTAN": {'num_restaurants': 0, 'total_score': 0},
+##        "STATEN ISLAND": {'num_restaurants': 0, 'total_score': 0},
+##        "BRONX": {'num_restaurants': 0, 'total_score': 0},
+  ##  }
+##    for key in d.iterkeys():
+##        boro = d[key]['BORO']
+##        r_count_and_score[boro]['num_restaurants'] += 1
+##        grade = d[key]['GRADE']
+##        r_count_and_score[boro]['total_score'] += GRADES[grade]
     res_info = {}
-    for key in r_count_and_score.iterkeys():
-        avg = r_count_and_score[key]['total_score'] / \
-                r_count_and_score[key]['num_restaurants']
-        res_info[key] = (r_count_and_score[key]['num_restaurants'], avg)
-    return res_info
+    for value in D.itervalues():
+        if value[0] not res_info.iterkeys():
+            total1 = 1
+            total2 = GRADES[value[1]]
+        else:
+            total1 = res_info[value[0]][0] + 1
+            total2 = res_info[value[0]][1] + GRADES[value[1]]
+        res_info[value[0] = (total1, total2)
+        res_info.update(res_info)
+    r_count_and_score = {}
+    for key in res_info.iterkeys():
+        total1 = res_info[key][0]
+        total2 = res_info[key][1]/res_info[key][0]
+        r_count_and_score[key] = (total1, total2)
+    return r_count_and_score
+    
+##        avg = r_count_and_score[key]['total_score'] / \
+##                r_count_and_score[key]['num_restaurants']
+##        res_info[key] = (r_count_and_score[key]['num_restaurants'], avg)
+##    return res_info
 
 def get_market_density(filepath):
     """This function gets a count of markets per borough.
@@ -72,21 +89,26 @@ def get_market_density(filepath):
     """
     fhandler = open(filepath, 'r')
     market_info = json.load(fhandler)
-    data = market_info['data']
-
-market_count = {
-    "QUEENS": 0,
-    "BROOKLYN": 0,
-    "MANHATTAN": 0,
-    "STATEN ISLAND": 0,
-    "BRONX": 0
-}
-for l in data:
-    market_count[l[8].upper().strip()] += 1
-    return market_count
+    market_data = market_info['data']
+    market_count {}
     fhandler.close()
+##market_count = {
+##    "QUEENS": 0,
+##    "BROOKLYN": 0,
+##    "MANHATTAN": 0,
+##    "STATEN ISLAND": 0,
+##    "BRONX": 0
+    for info in market_data:
+        info[8] = info[8].strip()
+        if info[8] not in market_count.iterkeys():
+            total1 = 1
+        else:
+            total1 = market_count[8]] + 1
+        market_count[info[8] total1
+        market_count.update(market_count)
+    return market_count
     
-
+        
 def correlate_data(res_file, market_file, data_output):
     """This function correlates data.
 
@@ -108,7 +130,7 @@ def correlate_data(res_file, market_file, data_output):
     new_market = {}
     for key in market_density.iterkeys():
          for key1 in score_summary.iterkeys():
-              if key1 ==str(key).upper():
+              if key1 == str(key).upper():
                    val1 = score_summary[key1][1]
                    val2 = float(market_density[key]) / (score_summary[key1][0])
                    new_market[key] = (val1, val2)
