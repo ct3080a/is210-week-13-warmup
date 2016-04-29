@@ -14,7 +14,7 @@ grades = {
 filepath = "inspection_results.csv"
 
 def get_score_summary(filepath):
-     """This function returns restaurant inspectction data.
+    """This function returns restaurant inspectction data.
     Args:
         filename (str): The data that will be read and interpreted
 
@@ -31,7 +31,7 @@ def get_score_summary(filepath):
     fhandler = open(filepath, 'r')
     f_list = fhandler.readlines()
     d = {}
-    for line in f_list[1:]:
+    for line in f_list[1:]: 
         part1 = line.split(',')
         if part1[10] in grades:
             d[part1[0]] = {"GRADE":part1[10], "BORO":part1[1]}
@@ -54,8 +54,7 @@ def get_score_summary(filepath):
         avg = r_count_and_score[key]['total_score'] / \
                  r_count_and_score[key]['num_restaurants']
         res_info[key] = (r_count_and_score[key]['num_restaurants'], avg)
-
-    return res_info
+        return res_info
 
 def get_market_density(filepath):
     """This function gets a count of markets per borough.
@@ -89,6 +88,7 @@ def get_market_density(filepath):
          market_count[l[8].upper().strip()] += 1
               
     fhandler.close()
+
     return market_count
 
 def correlate_data(res_file, market_file, data_output):
