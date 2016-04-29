@@ -90,7 +90,7 @@ def get_market_density(filepath):
     fhandler = open(filepath, 'r')
     market_info = json.load(fhandler)
     market_data = market_info['data']
-    market_count {}
+    market_count = {}
     fhandler.close()
 ##market_count = {
 ##    "QUEENS": 0,
