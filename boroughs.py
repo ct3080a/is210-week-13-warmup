@@ -29,16 +29,16 @@ def get_score_summary(filepath):
         'MANHATTAN': (748, 0.9771390374331531),
         'QUEENS': (414, 0.9719806763285017)}
     """
-    DATA = {}
+    data = {}
     fhandler = open(filepath, 'r')
     f_list = csv.reader(fhandler)
     for line in f_list:
         if line[10] not in ['P', '', 'GRADE']:
-            DATA[line[0]] = [line[1], line[10]]
-            DATA.update(DATA)
+            data[line[0]] = [line[1], line[10]]
+            data.update(data)
     fhandler.close()
     res_info = {}
-    for value in DATA.itervalues():
+    for value in data.itervalues():
         if value[0] not in res_info.iterkeys():
             total1 = 1
             total2 = GRADES[value[1]]
