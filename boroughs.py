@@ -5,14 +5,13 @@
 import json
 import csv
 GRADES = {
-    'A' : float(1),
-    'B' : float(.9),
-    'C' : float(.8),
-    'D' : float(.7),
-    'F' : float(.6),
+    'A': float(1),
+    'B': float(.9),
+    'C': float(.8),
+    'D': float(.7),
+    'F': float(.6),
 }
 
-#filepath = "inspection_results.csv"
 
 def get_score_summary(filepath):
     """This function returns restaurant inspectction data.
@@ -30,36 +29,23 @@ def get_score_summary(filepath):
         'MANHATTAN': (748, 0.9771390374331531),
         'QUEENS': (414, 0.9719806763285017)}
     """
-    D = {}
+    DATA = {}
     fhandler = open(filepath, 'r')
     f_list = csv.reader(fhandler)
     for line in f_list:
         if line[10] not in ['P', '', 'GRADE']:
-            D[line[0]] = [line[1], line[10]]
-            D.update(D)
+            DATA[line[0]] = [line[1], line[10]]
+            DATA.update(DATA)
     fhandler.close()
-    
-##    r_count_and_score = {
-##        "QUEENS": {'num_restaurants': 0, 'total_score': 0},
-##        "BROOKLYN": {'num_restaurants': 0, 'total_score': 0},
-##        "MANHATTAN": {'num_restaurants': 0, 'total_score': 0},
-##        "STATEN ISLAND": {'num_restaurants': 0, 'total_score': 0},
-##        "BRONX": {'num_restaurants': 0, 'total_score': 0},
-  ##  }
-##    for key in d.iterkeys():
-##        boro = d[key]['BORO']
-##        r_count_and_score[boro]['num_restaurants'] += 1
-##        grade = d[key]['GRADE']
-##        r_count_and_score[boro]['total_score'] += GRADES[grade]
     res_info = {}
-    for value in D.itervalues():
+    for value in DATA.itervalues():
         if value[0] not in res_info.iterkeys():
             total1 = 1
             total2 = GRADES[value[1]]
         else:
             total1 = res_info[value[0]][0] + 1
             total2 = res_info[value[0]][1] + GRADES[value[1]]
-        res_info[value[0]]= (total1, total2)
+        res_info[value[0]] = (total1, total2)
         res_info.update(res_info)
     r_count_and_score = {}
     for key in res_info.iterkeys():
@@ -67,11 +53,7 @@ def get_score_summary(filepath):
         total2 = res_info[key][1]/res_info[key][0]
         r_count_and_score[key] = (total1, total2)
     return r_count_and_score
-    
-##        avg = r_count_and_score[key]['total_score'] / \
-##                r_count_and_score[key]['num_restaurants']
-##        res_info[key] = (r_count_and_score[key]['num_restaurants'], avg)
-##    return res_info
+
 
 def get_market_density(filepath):
     """This function gets a count of markets per borough.
@@ -92,12 +74,6 @@ def get_market_density(filepath):
     market_data = market_info['data']
     market_count = {}
     fhandler.close()
-##market_count = {
-##    "QUEENS": 0,
-##    "BROOKLYN": 0,
-##    "MANHATTAN": 0,
-##    "STATEN ISLAND": 0,
-##    "BRONX": 0
     for info in market_data:
         info[8] = info[8].strip()
         if info[8] not in market_count.iterkeys():
@@ -107,8 +83,8 @@ def get_market_density(filepath):
         market_count[info[8]] = total1
         market_count.update(market_count)
     return market_count
-    
-        
+
+
 def correlate_data(res_file, market_file, data_output):
     """This function correlates data.
 
@@ -129,13 +105,13 @@ def correlate_data(res_file, market_file, data_output):
     score_summary = get_score_summary(res_file)
     new_market = {}
     for key in market_density.iterkeys():
-         for key1 in score_summary.iterkeys():
-              if key1 == str(key).upper():
-                   val1 = score_summary[key1][1]
-                   val2 = float(market_density[key]) / (score_summary[key1][0])
-                   new_market[key] = (val1, val2)
-                   new_market.update(new_market)
+        for key1 in score_summary.iterkeys():
+            if key1 == str(key).upper():
+                val1 = score_summary[key1][1]
+                val2 = float(market_density[key]) / (score_summary[key1][0])
+                new_market[key] = (val1, val2)
+                new_market.update(new_market)
     finaldata = json.dumps(new_market)
     fhandler = open(data_output, 'w')
     fhandler.write(finaldata)
-    fhandler.close
+    fhandler.close()
