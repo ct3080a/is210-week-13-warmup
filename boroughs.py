@@ -34,7 +34,7 @@ def get_score_summary(filepath):
     fhandler = open(filepath, 'r')
     f_list = csv.reader(fhandler)
     for line in f_list:
-        if row[10] not in ['P', '', 'GRADE']:
+        if line[10] not in ['P', '', 'GRADE']:
             D[line[0]] = [line[1], line[10]]
             D.update(D)
     fhandler.close()
@@ -103,7 +103,7 @@ def get_market_density(filepath):
         if info[8] not in market_count.iterkeys():
             total1 = 1
         else:
-            total1 = market_count[8] + 1
+            total1 = market_count[info[8]] + 1
         market_count[info[8]] = total1
         market_count.update(market_count)
     return market_count
