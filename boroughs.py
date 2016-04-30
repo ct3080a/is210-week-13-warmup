@@ -104,7 +104,7 @@ def get_market_density(filepath):
             total1 = 1
         else:
             total1 = market_count[8] + 1
-        market_count[info[8]] total1
+        market_count[info[8]] = total1
         market_count.update(market_count)
     return market_count
     
