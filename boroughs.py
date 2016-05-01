@@ -3,7 +3,8 @@
 """Tasks 01 - 03: opening files, reading, writing, json, csv, etc."""
 
 
-import csv, json
+import csv
+import json
 
 GRADES = {
     'A': float(1.00),
